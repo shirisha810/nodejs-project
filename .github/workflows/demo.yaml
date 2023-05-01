@@ -35,7 +35,7 @@ jobs:
                   docker build -t 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA . 
                   docker push 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA
 
-                  git clone https://github.com/shirisha810/nodejs-gitops.git
+                  git clone https://${{secrets.AWS_GITHUB_USER}}:${{secrets.AWS_GITHUB_TOKEN}}@github.com/shirisha810/nodejs-gitops.git
 
                   cd nodejs-gitops
 
@@ -46,4 +46,4 @@ jobs:
 
                   git add .
                   git commit -m "update the code"
-                  git push main
+                  git push --set-upstream origin main
