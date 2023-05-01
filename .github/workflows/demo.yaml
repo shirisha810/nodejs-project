@@ -27,8 +27,23 @@ jobs:
                uses: aws-actions/amazon-ecr-login@v1  
              
              - uses: actions/checkout@v2
+             - name: SER ENV
+               run: echo "GITHUB_BRANCH=$(echo $GITHUB_REF_NAME-$GITHUB_SHA)" >> $GITHUB_ENV
+
              - name: Build the Docker image
                run: |
                   docker build -t 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA . 
                   docker push 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA
-                  
+
+                  git clone https://github.com/shirisha810/nodejs-gitops.git
+
+                  cd nodejs-gitops
+
+                  git config user.name "sridhar"
+                  git config user.email "sridhar@abc.com"
+
+                  yq e '.spec.template.spec.containers[0].image = "758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:${{ env.GITHUB_BRANCH }}" ' -i deployment.apps/nodejs.yaml
+
+                  git add .
+                  git commit -m "update the code"
+                  git push main
