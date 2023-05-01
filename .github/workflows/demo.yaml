@@ -29,6 +29,6 @@ jobs:
              - uses: actions/checkout@v2
              - name: Build the Docker image
                run: |
-                  docker build -t 758671678745.dkr.ecr.us-east-1.amazonaws.com/nodejs-project:$GITHUB_REF_NAME-$GITHUB_SHA . 
-                  docker push 758671678745.dkr.ecr.us-east-1.amazonaws.com/nodejs-project:$GITHUB_REF_NAME-$GITHUB_SHA
+                  docker build -t 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA . 
+                  docker push 758671678745.dkr.ecr.ap-south-1.amazonaws.com/demo-project:$GITHUB_REF_NAME-$GITHUB_SHA
                   
