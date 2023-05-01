@@ -1,0 +1,21 @@
+name: NodeJS 
+
+on:
+    # Trigger the workflow on push,
+    # but only for the pre-production branch
+    push:
+        branches:
+            - main
+env:
+    AWS_REPOSITORY_URL: ${{ secrets.AWS_REPOSITORY_URL }}
+    GITHUB_TOKEN: ${{ secrets.AWS_GITHUB_TOKEN }}
+
+jobs:
+    NodeJs:
+        runs-on: ubuntu-latest
+
+        steps:
+             - uses: actions/checkout@v2
+             - name: Build the Docker image
+               run: |
+                  docker build -t test . 
